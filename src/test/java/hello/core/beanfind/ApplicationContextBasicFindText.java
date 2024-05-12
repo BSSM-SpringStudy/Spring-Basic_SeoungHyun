@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ApplicationContextBasicFindText {
 
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -17,28 +19,28 @@ public class ApplicationContextBasicFindText {
     @DisplayName("빈 이름으로 조회")
     void findBeanByName() {
         MemberService memberService = ac.getBean("memberService", MemberService.class);
-        Assertions.assertInstanceOf(MemberService.class, memberService);
+        assertInstanceOf(MemberService.class, memberService);
     }
 
     @Test
     @DisplayName("이름없이 타입으로만 조회")
     void findBeanByType() {
         MemberService memberService = ac.getBean(MemberService.class);
-        Assertions.assertInstanceOf(MemberService.class, memberService);
+        assertInstanceOf(MemberService.class, memberService);
     }
 
     @Test
     @DisplayName("구체 타입으로 조회")
     void findBeanByName2() {
         MemberService memberService = ac.getBean("memberService", MemberServiceImpl.class);
-        Assertions.assertInstanceOf(MemberService.class, memberService);
+        assertInstanceOf(MemberService.class, memberService);
     }
 
     @Test
     @DisplayName("빈 이름으로 조회X")
     void findBeanByNameX() {
         // ac.getBean("XXXX", MemberServiceImpl.class);
-        Assertions.assertThrows(NoSuchBeanDefinitionException.class,
+        assertThrows(NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("XXXX", MemberServiceImpl.class));
     }
 }
